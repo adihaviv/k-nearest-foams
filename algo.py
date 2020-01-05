@@ -66,10 +66,11 @@ def rotate_graph(V, angle):
         np.append(E,Rp)
     return E
 
+
 # V - the vertices of the graph
 # H -  stretch vector R^d where d in {2,3} for 2D and 3D respectively
 def stretch_graph(V, H):
-     U = np.diag(np.exp(V*H,-2))
+     U = np.diag(np.exp(V*H, -2))
      return U
 
 
@@ -77,11 +78,12 @@ def stretch_graph(V, H):
 # H -  stretch vector R^d where d in {2,3} for 2D and 3D respectively
 # angle - [0,pi]^a where a in {1,3} for 2D and 3D respectively
 def stretch_and_rotate_graph(V, H, angle):
-    E = rotate_graph(V,angle)
-    U = stretch_graph(V,H)
-    EtU = np.matmul(np.transpose(E),U)
-    M = np.matmul(EtU,E)
+    E = rotate_graph(V, angle)
+    U = stretch_graph(V, H)
+    EtU = np.matmul(np.transpose(E), U)
+    M = np.matmul(EtU, E)
     return M
+
 
 def build_edges_k_nearest_neighbors(V,k=6):
     E = {}
