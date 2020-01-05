@@ -85,7 +85,7 @@ def stretch_and_rotate_graph(V, H, angle):
     return M
 
 
-#TODO: change to the simetric distance
+#TODO: change to the symmetric distance
 def distance(M_i, p_i, p_j):
     d_pi_pj = np.sqrt(np.matmul(np.matmul(np.transpose((p_i - p_j)), M_i), (p_i - p_j)))
     return d_pi_pj
