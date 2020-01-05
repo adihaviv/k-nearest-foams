@@ -11,9 +11,6 @@ from math import cos, sin
 # Poisson disc distribution [Worley 1996]. The subdivision scheme
 # of Martínez et al. [2016] is used to locally increase or decrease the
 # point density
-from odbc import progError
-
-
 def build_graph(point_density=10, grid=([0, 1], [0, 1])):
     V = np.array()
     grid_x, grid_y = grid
@@ -88,22 +85,23 @@ def stretch_and_rotate_graph(V, H, angle):
     return M
 
 
+#TODO: change to the simetric distance
 def distance(M_i, p_i, p_j):
     d_pi_pj = np.sqrt(np.matmul(np.matmul(np.transpose((p_i - p_j)), M_i), (p_i - p_j)))
     return d_pi_pj
 
+
 def build_edges_k_nearest_neighbors(V, H, angle, k=6):
-    E = np.array()
-    
+    E = {}
     M = stretch_and_rotate_graph(V, H, angle)
     for i in range(len(V)):
+        p_i_neighbors = np.array()
         for j in range(len(V)):
             p_i = V[i]
             p_j = V[j]
 
             d_pi_pj = distance(M[i], p_i, p_j)
-
-
-
-
+            np.append(p_i_neighbors,d_pi_pj)
+        pi_knn = p_i_neighbors.argsort()[-k:][::-1]
+        E[p_i] = pi_knn
     return (V,E)
