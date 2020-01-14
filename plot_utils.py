@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
-import numpy as np
 
 
 def plot_2d_foam_graph(k_foam):
@@ -14,6 +13,49 @@ def plot_2d_foam_graph(k_foam):
     for vi, ni in k_foam.edges.items():
         for vj in ni:
             plt.plot(*zip(vi, vj), 'ko-')
+
+    fig.show()
+
+def plot_3d_foam_graph(k_foam):
+    fig = go.Figure()
+
+    for vi, ni in k_foam.edges.items():
+        x1, y1, z1 = vi
+        for vj in ni:
+            x2, y2, z2 = vj
+            fig.add_trace(go.Scatter3d(
+                x=[x1, x2], y=[y1, y2], z=[z1, z2],
+                marker=dict(
+                    size=6,
+                    color='darkblue'
+                ),
+                line=dict(
+                    color='black',
+                    width=4
+                )
+            ))
+
+    fig.update_layout(
+        width=800,
+        height=700,
+        autosize=False,
+        scene=dict(
+            camera=dict(
+                up=dict(
+                    x=0,
+                    y=0,
+                    z=1
+                ),
+                eye=dict(
+                    x=0,
+                    y=1,
+                    z=1,
+                )
+            ),
+            aspectratio=dict(x=1, y=1, z=1),
+            aspectmode='manual'
+        ),
+    )
 
     fig.show()
 

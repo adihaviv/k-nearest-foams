@@ -83,7 +83,7 @@ class KNearestFoam(object):
 
 	@staticmethod
 	def _create_rotation_matrix(angle):
-		if not isinstance(angle, list):
+		if not isinstance(angle, np.ndarray):
 			theta = angle
 			R = np.array([
 				[cos(theta), -sin(theta)],
