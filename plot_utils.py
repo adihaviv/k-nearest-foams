@@ -60,14 +60,32 @@ def plot_3d_foam_graph(k_foam):
     fig.show()
 
 
-def plot_3d_mesh(x, y, z):
-    #  Download data set from plotly repo
-    # pts = np.loadtxt(np.DataSource().open('https://raw.githubusercontent.com/plotly/datasets/master/mesh_dataset.txt'))
-    # x, y, z = pts.T
+def plot_3d_mesh(mesh):
+    x = mesh.vertices[:, 0]
+    y = mesh.vertices[:, 1]
+    z = mesh.vertices[:, 2]
 
-    fig = go.Figure(data=[go.Mesh3d(x=x,
-                                    y=y,
-                                    z=z,
-                                    color='lightpink',
-                                    opacity=0.50)])
+    i = mesh.faces[:, 0]
+    j = mesh.faces[:, 1]
+    k = mesh.faces[:, 2]
+
+    fig = go.Figure(data=[
+        go.Mesh3d(
+            x=x,
+            y=y,
+            z=z,
+            colorbar_title='z',
+            colorscale=[[0, 'gold'],
+                        [0.5, 'mediumturquoise'],
+                        [1, 'magenta']],
+            intensity=[0, 0.33, 0.66, 1],
+            i=i,
+            j=j,
+            k=k,
+            name='y',
+            showscale=True
+        )
+    ])
+
     fig.show()
+
