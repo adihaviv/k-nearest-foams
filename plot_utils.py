@@ -4,16 +4,20 @@ import plotly.graph_objects as go
 
 def plot_2d_foam_graph(k_foam):
     fig = plt.figure()
+    ax = fig.add_subplot(111)
 
     x, y = k_foam.grid
-    for xi, yi in zip(x, y):
-        plt.axvline(x=xi, linestyle='--')
-        plt.axhline(y=yi, linestyle='--')
+    for xi in x:
+        ax.axvline(x=xi, linestyle='--')
+    for yi in y:
+        ax.axhline(y=yi, linestyle='--')
 
     for vi, ni in k_foam.edges.items():
         for vj in ni:
-            plt.plot(*zip(vi, vj), 'ko-')
+            ax.plot(*zip(vi, vj), 'ko-')
 
+    ax.set_aspect('equal')
+    fig.set_size_inches((10, 10))
     fig.show()
 
 def plot_3d_foam_graph(k_foam):
@@ -52,7 +56,7 @@ def plot_3d_foam_graph(k_foam):
                     z=1,
                 )
             ),
-            aspectratio=dict(x=1, y=1, z=1),
+            aspectratio=dict(x=len(k_foam.grid[0]), y=len(k_foam.grid[1]), z=len(k_foam.grid[2])),
             aspectmode='manual'
         ),
     )
