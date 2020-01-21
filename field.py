@@ -74,6 +74,7 @@ class OrthotropicField(object):
 	def _find_matching_tile(self, *point_indices):
 		tile_indices = []
 		for di, pi in zip(self._grid, *point_indices):
+			di = np.array(di)
 			tile_indices.append(di[di <= pi].max())
 		return tuple(tile_indices)
 

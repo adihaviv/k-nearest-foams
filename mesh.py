@@ -25,6 +25,6 @@ def foam_graph_to_mesh(k_foam, thickness):
 	wire_network.compute_symmetry_orbits()
 
 	inflator = Inflator(wire_network)
-	inflator.inflate(thickness)
+	inflator.inflate(thickness, allow_self_intersection=True, per_vertex_thickness=False)
 
 	return inflator.mesh
